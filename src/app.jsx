@@ -9,34 +9,9 @@ import { Reveal } from './reveal.jsx';
  * content agent's src/puzzles.js — {n,date,start,end,len,par} in the clear,
  * `path` inside the per-day `enc` blob) plus a dictionary module.
  *
- * ▼▼ DEV FALLBACK — DELETE AT INTEGRATION ▼▼
- * While those files are absent, the globs below resolve empty and we fall
- * back to src/puzzles.dev.js (3 fixtures + a tiny word list; static import —
- * a namespace-through-alias access gets tree-shaken by rollup, learned the
- * hard way). To integrate:
- *   1. rm src/puzzles.dev.js
- *   2. Replace this whole block (imports included) with:
- *        import { PUZZLES } from './puzzles.enc.js';
- *        import { WORDS as RAW_WORDS } from './words.js';   // real dictionary
- * ═══════════════════════════════════════════════════════════════════════ */
-import * as DEV from './puzzles.dev.js';
-const _real = import.meta.glob('./puzzles.enc.js', { eager: true });
-const _dicts = import.meta.glob(['./words.js', './dictionary.js', './dict.js', './wordlist.js'], { eager: true });
-
-const _realMod = _real['./puzzles.enc.js'];
-const PUZZLES = (_realMod && _realMod.PUZZLES) || DEV.PUZZLES;
-
-const _dmod = Object.values(_dicts)[0];
-const RAW_WORDS =
-  (_dmod && (_dmod.WORDS || _dmod.DICTIONARY || _dmod.WORD_LIST || _dmod.default)) ||
-  (_realMod && (_realMod.WORDS || _realMod.DICTIONARY)) || // dictionary may ride inside puzzles.enc.js
-  DEV.WORDS;
-if (_realMod && !(_dmod || _realMod.WORDS || _realMod.DICTIONARY)) {
-  // Real puzzles present but no dictionary under a name we probe — integration
-  // must fix this (see NOTES-ui.md) or play falls back to the tiny dev list.
-  console.error('ladderle: real puzzles loaded but NO dictionary module found (looked for words.js/dictionary.js/dict.js/wordlist.js, and WORDS/DICTIONARY inside puzzles.enc.js)');
-}
-/* ▲▲ DEV FALLBACK — DELETE AT INTEGRATION ▲▲ */
+ */
+import { PUZZLES } from './puzzles.enc.js';
+import { WORDS as RAW_WORDS } from './words.js';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

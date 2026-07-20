@@ -53,9 +53,20 @@ ok(Array.isArray(PUZZLES) && PUZZLES.length > 0, 'PUZZLES is missing or empty (s
 
 let DICT = null; // Set of UPPERCASE words
 {
-  const list = rawWords instanceof Set ? [...rawWords] : rawWords;
+  // Accept three shapes: Array, Set, or an object GROUPED BY LENGTH
+  // ({ "3": [...], "4": [...], "5": [...] }) — the spec explicitly invited the
+  // grouped form for compactness, so the gate must not assume a flat list.
+  const flatten = (w) => {
+    if (w instanceof Set) return [...w];
+    if (Array.isArray(w)) return w;
+    if (w && typeof w === 'object') {
+      return Object.values(w).flatMap((v) => (v instanceof Set ? [...v] : Array.isArray(v) ? v : []));
+    }
+    return null;
+  };
+  const list = flatten(rawWords);
   if (!Array.isArray(list) || list.length === 0) {
-    problems.push('src/words.js must export a non-empty word list (`export const WORDS` or default export; Array or Set)');
+    problems.push('src/words.js must export a non-empty word list (`export const WORDS` or default export; Array, Set, or {length: [...]})');
   } else {
     DICT = new Set();
     let bad = 0;
