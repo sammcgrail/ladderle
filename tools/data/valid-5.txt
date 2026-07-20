@@ -538,7 +538,6 @@ birls
 birse
 birth
 bison
-bitch
 biter
 bites
 bitsy
@@ -2638,7 +2637,6 @@ honer
 hones
 honey
 honks
-honky
 honor
 hooch
 hoods
@@ -3481,7 +3479,6 @@ mezzo
 miaow
 micas
 miche
-micks
 micra
 micro
 middy

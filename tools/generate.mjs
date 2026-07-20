@@ -51,11 +51,14 @@ const WORD_USE_GAP = 30;                       // min days between reuses
 // never appear on a puzzle path or as an endpoint.
 // ---------------------------------------------------------------------------
 const BLOCK_ALL = new Set(`
-abo abos anal anus arse arses bimbo bints bint boner boners boob boobs booby
+abo abos anal anus arse arses bimbo bints bint bitch bitchy boner boners boob
+boobs booby
 bren busty chink chinks clit clits cock cocks coon coons cum cums cunt cunts
 dago dagos darky darkie dick dicks dicky dildo dong dongs duce dyke dykes fag
 fags fagot fuck fucks gimp gimps gook gooks gyp gyps gypsy heil heils homo homos
-hos hussy jism jizz kike kikes koss kraut milf minge meth meths nads nance nazi
+honky hos hun huns hussy jew jews jism jizz kike kikes koss kraut lez mick
+micks milf minge
+meth meths nads nance nazi
 nazis negro nigra nooky penis piss pissy porn porno pube pubes pubic pussy quim
 rape raped raper rapes rom roms sambo sambos shat shit shite shits sissy slut
 sluts smut smuts spaz spazz spic spics spick spik squaw tit tits titty twat
@@ -76,10 +79,45 @@ bach beth billy bobby butch carl dutch japan kerry leary mike molly perry roger
 rube sally terry tommy tony troy
 doth hath thee thine thou thy unto
 blam sook
-aids ala alan als ass asses bam ben bene cal cant chile colin deco del dis
-dolly fave hal hist ken matt mel morn mort ole ort orts ose peter poly rath ree
-rem rems rolf sal sarge serge sex sexy sim sims sou strep tach ted til tod tom
-wont yob yom
+aids ala alan als ana ane anes ass asses bam ben bene bey beys bod bods brad
+brads cal cant chile cole coles colin cuddy deco del devel devels dink dinks
+dis dolly dom doms fave fer gage gages greek hal hart harts hast helo helos
+hist jerry jess ken matt med meds mel milt milts morn mort naw oho ole ort orts
+ose ped peds peter poly punky rath ree rem rems rolf sal sarge serge sex sexy
+shaw shaws sim sims sou strep tach ted tho til tod tom wack wacks wally wont
+yob yom
+ama ami ani arf att auk ava bel cor cox coz dag dah dater daters dev devs dex
+dit dol dun ers eth fay fen gar ged gib git goa gob hah hap heh hic hob hoy hup
+ich iff ifs jin jones jus kat kelly kip lac lam lex lin lis lite lites lum luv
+lux mac macs mol mor nee nip noh noo nos obi ops pah pap pax pis poi pom rah
+rex rick ricks rin roman rya sac seg slave slaves sos sot tae taes taj tas tor
+uns vee vig vis wale wales wha yah yeh yuk zed
+benny cain dell dells exec execs harry inter lowe lowes playa playas sans trey
+treys
+gams holt holts john johns louie louies louis moll molls soma somas
+bates cam cams carb carbs cates coney coneys dow dows mikes monde mondo monte
+montes ness sen sens
+las marc marcs res vesta vestas
+hon hons ins lars libs morse pac pacs pam pams primo primos promo promos saith
+sike sikes
+hong hongs huck hucks ser sers toms
+brit brits casa casas cos dos moil moils nome nomes
+joe joes jun juns kent kents para paras saul sauls sept septs stat
+doc docs mache maches pas rec recs ruth ruths stang stangs tope topes
+costa costas laker lakers spec specs tare tares tate tates
+bree brees brock brocks delly gen gens glen glens mack macks rand rands
+chico chicos gay gays nelly
+eng engs josh joshes tosh
+garth garths haps nite nites
+dost jake jakes
+biz grope groped gropes
+chad chads naked pee pees sade sades syne synes
+mem mems shalt vive vives
+griff griffs sox
+flack flacks lat lats pele peles
+jill jills mag mags
+mae maes paris
+lang langs fetal
 `.trim().split(/\s+/));
 
 // ---------------------------------------------------------------------------
@@ -262,6 +300,7 @@ async function generate() {
   const useCount = new Map();         // word → count (as endpoint)
   const lastUsedDay = new Map();      // word → day
   const rungUses = new Map();         // word → times it appeared on any path
+  const startUsed = new Set(), endUsed = new Set(); // role-specific reuse guard
   const pairKey = (a, b) => [a, b].sort().join('|');
 
   const okWordUse = (w, day) =>
@@ -269,6 +308,7 @@ async function generate() {
     day - (lastUsedDay.get(w) ?? -999) >= WORD_USE_GAP;
   const recordUse = (a, b, day) => {
     usedPairs.add(pairKey(a, b));
+    startUsed.add(a); endUsed.add(b);
     for (const w of [a, b]) {
       useCount.set(w, (useCount.get(w) ?? 0) + 1);
       lastUsedDay.set(w, day);
@@ -285,12 +325,14 @@ async function generate() {
     return dv;
   }
 
-  // verified cute queues per length
+  // verified cute queues per length; their words are RESERVED so a generated
+  // pair can't poach them first (e.g. a random SURF→HOME before SURF→WAVE)
   const cuteQ = { 3: [], 4: [], 5: [] };
+  const reserved = new Set(PINS.flatMap((p) => [p.a, p.b]));
   for (const L of LENGTHS)
     for (const [a, b] of CUTE[L]) {
       const dv = qualify(L, a, b, 999);
-      if (dv) cuteQ[L].push({ a, b, par: dv });
+      if (dv) { cuteQ[L].push({ a, b, par: dv }); reserved.add(a); reserved.add(b); }
       else console.log(`  (cute dropped: ${a}→${b} — no matching common/valid distance in [3,5])`);
     }
 
@@ -302,16 +344,20 @@ async function generate() {
     const allowed = (day <= EASY_DAYS ? [3, 4] : [3, 4, 5])
       .sort((x, y) => (PAR_TARGET[y] - parCount[y]) - (PAR_TARGET[x] - parCount[x]));
     const parOrder = allowed.filter((p) => p !== prevPar).concat(allowed.filter((p) => p === prevPar));
-    // endpoint pool: common ∩ google-10k, usable today
-    const pool = S[L].common.filter((w) => S[L].rank.get(w) >= 0 && okWordUse(w, day));
+    // endpoint pool: common ∩ google-10k, usable today; a generated puzzle never
+    // reuses a word in the same role (kills near-duplicate days like
+    // AREA→GRIP / AREA→GRAD)
+    const pool = S[L].common.filter((w) =>
+      S[L].rank.get(w) >= 0 && okWordUse(w, day) && !reserved.has(w));
+    const startPool = pool.filter((w) => !startUsed.has(w));
     for (const targetPar of parOrder) {
       for (let attempt = 0; attempt < 400; attempt++) {
-        const a = pool[Math.floor(rng() ** 1.6 * pool.length)]; // skew to frequent
+        const a = startPool[Math.floor(rng() ** 1.6 * startPool.length)]; // skew to frequent
         if (!a) continue;
         const dv = bfsDist(S[L].adjV, a), dc = bfsDist(S[L].adjC, a);
         let best = null;
         for (const b of pool) {
-          if (b === a || usedPairs.has(pairKey(a, b))) continue;
+          if (b === a || endUsed.has(b) || usedPairs.has(pairKey(a, b))) continue;
           if (dc.get(b) !== targetPar || dv.get(b) !== targetPar) continue;
           if (a.endsWith('s') && b.endsWith('s')) continue;      // lazy plural pairs
           const h = hamming(a, b);
@@ -409,30 +455,28 @@ export function isWord(w) {
 }
 
 // ---------------------------------------------------------------------------
-// Emit src/puzzles.js — schema per SPEC.md; `path` cipher-encoded per day
+// Emit src/puzzles.js — PLAINTEXT authoring source per SPEC.md. `path` stays a
+// plain uppercase array here; encode-puzzles.mjs ciphers it into
+// src/puzzles.enc.js at build time (the app imports only the encoded file).
 // ---------------------------------------------------------------------------
 async function emitPuzzles(puzzles) {
-  const { encode } = await import(join(ROOT, 'src', 'cipher.js'));
   const rows = puzzles.map((p) => {
-    const up = (w) => w.toUpperCase();
-    const enc = encode(p.path.map(up), p.date);
-    return `  { n: ${p.n}, date: '${p.date}', start: '${up(p.start)}', end: '${up(p.end)}', len: ${p.len}, par: ${p.par},\n    path: '${enc}' },`;
+    const up = (w) => `'${w.toUpperCase()}'`;
+    return `  { n: ${p.n}, date: '${p.date}', start: ${up(p.start)}, end: ${up(p.end)}, len: ${p.len}, par: ${p.par},\n    path: [${p.path.map(up).join(',')}] },`;
   });
   const js = `// AUTO-GENERATED by tools/generate.mjs — do not hand-edit. Schema: SPEC.md.
-// n, date, start, end, len, par are PUBLIC. \`path\` is one verified shortest
-// ladder (start…end inclusive, par+1 rungs, all COMMON words, UPPERCASE),
-// obfuscated with src/cipher.js keyed by the puzzle date:
-//   import { decode } from './cipher.js';
-//   decode(p.path, p.date)  →  ['COLD','CORD','WORD','WARD','WARM']
+// Plaintext authoring source. \`path\` is one verified shortest ladder
+// (start…end inclusive, par+1 rungs, every rung an everyday COMMON word);
+// encode-puzzles.mjs obfuscates it into src/puzzles.enc.js at build time.
 // par === true BFS shortest distance over the full validation dictionary
 // (src/words.js) — beating par is impossible; matching it is the flex.
-// Verified by tools/generate.mjs --verify (run it after any regeneration).
+// Gates: test/validate.mjs (build) + tools/generate.mjs --verify.
 export const PUZZLES = [
 ${rows.join('\n')}
 ];
 `;
   writeFileSync(join(ROOT, 'src', 'puzzles.js'), js);
-  console.log(`wrote src/puzzles.js (${puzzles.length} puzzles)`);
+  console.log(`wrote src/puzzles.js (${puzzles.length} puzzles, plaintext paths)`);
 }
 
 // ---------------------------------------------------------------------------
@@ -443,7 +487,6 @@ ${rows.join('\n')}
 async function verify(print) {
   const { PUZZLES } = await import(join(ROOT, 'src', 'puzzles.js'));
   const { WORDS, isWord } = await import(join(ROOT, 'src', 'words.js'));
-  const { decode } = await import(join(ROOT, 'src', 'cipher.js'));
   const fail = [];
   const check = (c, msg) => { if (!c) fail.push(msg); };
 
@@ -500,8 +543,7 @@ async function verify(print) {
     check(!seenPairs.has(key), `${tag}: duplicate start/end pair`);
     seenPairs.add(key);
 
-    let path;
-    try { path = decode(p.path, p.date); } catch (e) { check(false, `${tag}: path decode failed (${e})`); return; }
+    const path = p.path;
     check(Array.isArray(path) && path.length === p.par + 1, `${tag}: path length ${path?.length} ≠ par+1`);
     check(path[0] === p.start && path[path.length - 1] === p.end, `${tag}: path endpoints wrong`);
     check(new Set(path).size === path.length, `${tag}: repeated word in path`);

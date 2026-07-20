@@ -168,20 +168,17 @@ bowl 1278
 bows -1
 boys 704
 bozo -1
-brad 1981
 brag -1
 bran -1
 bras 2935
 brat -1
 bred -1
-bree -1
 brew -1
 brie -1
 brig -1
 brim -1
 brin -1
 bris -1
-brit -1
 bros -1
 brow -1
 buck 2633
@@ -213,27 +210,23 @@ cabs -1
 cafe 1504
 caff -1
 cage 2731
-cain -1
 cake 1496
 calf -1
 call 219
 calm 2404
 came 548
 camp 942
-cams 2078
 cane -1
 cans -1
 cape 1088
 capo -1
 caps 1777
-carb 2888
 card 238
 care 185
 carp -1
 carr -1
 cars 385
 cart 284
-casa 2867
 case 174
 cash 519
 cast 974
@@ -241,7 +234,6 @@ cats 1547
 cave 2437
 cell 374
 cent 1038
-chad 2185
 chap -1
 char 1368
 chat 491
@@ -285,7 +277,6 @@ coin 2042
 coke -1
 cola -1
 cold 853
-cole 2032
 coma -1
 comb -1
 come 281
@@ -373,7 +364,6 @@ deft -1
 defy -1
 deke -1
 deli -1
-dell 1081
 demo 1302
 dent -1
 deny 2521
@@ -391,7 +381,6 @@ dill -1
 dime -1
 dine -1
 ding -1
-dink -1
 dips -1
 dire -1
 dirk -1
@@ -403,7 +392,6 @@ ditz -1
 diva -1
 dive 2327
 dock 2812
-docs 2038
 doer -1
 does 119
 dogs 1099
@@ -420,7 +408,6 @@ dork -1
 dorm -1
 dory -1
 dose 1538
-dost -1
 dote -1
 dots -1
 dour -1
@@ -487,7 +474,6 @@ ever 418
 eves -1
 evil 1167
 exam 1402
-exec 2770
 exes -1
 exit 1225
 expo 2517
@@ -601,7 +587,6 @@ fuzz -1
 gaby -1
 gaff -1
 gaga -1
-gage 3076
 gags -1
 gain 1010
 gala -1
@@ -609,7 +594,6 @@ gale 2960
 gall -1
 gals -1
 game 182
-gams -1
 gang 1493
 gaps 2947
 garb -1
@@ -617,7 +601,6 @@ gasp -1
 gate 1446
 gave 920
 gawk -1
-gays 2767
 gaze -1
 gear 808
 geek 2350
@@ -636,7 +619,6 @@ gist -1
 give 307
 glad 1626
 glee -1
-glen 2161
 glib -1
 glop -1
 glow 3031
@@ -702,14 +684,11 @@ hams -1
 hand 355
 hang 1932
 hank -1
-haps -1
 hard 325
 hare -1
 harm 2054
 harp -1
-hart 2480
 hash 2884
-hast -1
 hate 1306
 hats 1893
 haul -1
@@ -730,7 +709,6 @@ heir -1
 held 535
 hell -1
 helm -1
-helo -1
 help 48
 hemp -1
 hens -1
@@ -758,10 +736,8 @@ hock -1
 hogs -1
 hold 612
 hole 1151
-holt -1
 holy 1231
 home 17
-hong 1003
 honk -1
 hood 1940
 hoof -1
@@ -779,7 +755,6 @@ hour 556
 howe -1
 howl -1
 hows -1
-huck -1
 huge 563
 hugs -1
 hula -1
@@ -790,7 +765,6 @@ hums -1
 hung 2280
 hunh -1
 hunk -1
-huns -1
 hunt 1696
 hurl -1
 hurt 1759
@@ -825,7 +799,6 @@ jack 782
 jade 3047
 jags -1
 jail 2459
-jake 2736
 jams -1
 jane 1341
 jars -1
@@ -838,22 +811,16 @@ jeez -1
 jefe -1
 jell -1
 jerk -1
-jess -1
 jest -1
 jets 3106
-jews 2007
 jiff -1
-jill 2661
 jinx -1
 jobs 239
 jock -1
-joes -1
 joey -1
-john 217
 join 251
 joke 2209
 jolt -1
-josh 2189
 joys -1
 judo -1
 jugs -1
@@ -871,7 +838,6 @@ keep 360
 kegs -1
 kelp -1
 keno 3050
-kent 1592
 kept 1108
 kern -1
 keys 1228
@@ -914,11 +880,9 @@ lame -1
 lamp 1618
 land 409
 lane 1195
-lang 2137
 laps -1
 lard -1
 lark -1
-lars -1
 lash -1
 lass -1
 last 82
@@ -947,7 +911,6 @@ lets 1542
 levy 2931
 lewd -1
 liar -1
-libs 2760
 lice -1
 lick -1
 lido -1
@@ -973,7 +936,6 @@ lion 1885
 lips 2173
 lira -1
 list 68
-lite 1917
 live 262
 load 899
 loaf -1
@@ -1005,7 +967,6 @@ lots 810
 loud 2261
 lout -1
 love 215
-lowe -1
 lows 2641
 luau -1
 lube -1
@@ -1024,9 +985,7 @@ lust -1
 lutz -1
 lynx -1
 mace -1
-mack -1
 made 139
-mags -1
 maid -1
 mail 122
 maim -1
@@ -1039,7 +998,6 @@ mama -1
 mano -1
 many 116
 maps 610
-marc 1735
 mare -1
 mark 437
 mars 1771
@@ -1071,14 +1029,12 @@ mesh 1233
 mess 2566
 meta 1782
 mice 1843
-mick -1
 midi 2117
 mild 2604
 mile 1276
 milk 1318
 mill 1700
 milo -1
-milt -1
 mime 2906
 mina -1
 mind 538
@@ -1096,11 +1052,9 @@ mobs -1
 mock -1
 mode 581
 mods 2813
-moil -1
 mojo -1
 mold 2844
 mole -1
-moll -1
 moly -1
 moms 2157
 monk -1
@@ -1141,7 +1095,6 @@ neck 1451
 need 115
 neon 3085
 nerd -1
-ness -1
 nest 2953
 neve -1
 news 34
@@ -1151,12 +1104,10 @@ nice 572
 nick 1395
 nigh -1
 nine 1132
-nite -1
 node 1272
 nods -1
 noel -1
 noir -1
-nome -1
 none 482
 noon 2071
 nope -1
@@ -1234,7 +1185,6 @@ pane -1
 pans -1
 pant -1
 papa -1
-para 1426
 pare -1
 park 303
 part 130
@@ -1257,8 +1207,6 @@ peek -1
 peel -1
 peep -1
 peer 1431
-pees -1
-pele -1
 pelt -1
 pens 2895
 peon -1
@@ -1364,7 +1312,6 @@ rail 1456
 rain 1142
 rake -1
 ramp -1
-rand 2631
 rang -1
 rank 924
 rant -1
@@ -1393,7 +1340,6 @@ rest 706
 ribs -1
 rice 1307
 rich 910
-rick 1688
 ride 1153
 rife -1
 riff -1
@@ -1445,10 +1391,8 @@ runt -1
 ruse -1
 rush 1614
 rust -1
-ruth 2274
 sabe -1
 sack -1
-sade -1
 safe 619
 saga -1
 sage 2424
@@ -1463,10 +1407,8 @@ sand 1511
 sane -1
 sang -1
 sank -1
-sans 2704
 saps -1
 sark -1
-saul -1
 save 231
 saws -1
 says 407
@@ -1498,14 +1440,12 @@ sell 310
 semi 1500
 send 144
 sent 574
-sept 2127
 sera -1
 sets 728
 sewn -1
 shad -1
 shah -1
 sham -1
-shaw 2516
 shay -1
 shea -1
 shed 2621
@@ -1584,7 +1524,6 @@ soil 1218
 sold 825
 sole 1720
 solo 1642
-soma 2543
 some 56
 song 593
 sons 1738
@@ -1601,7 +1540,6 @@ span 2207
 spar -1
 spas 3103
 spat -1
-spec 2111
 spew -1
 spin 1787
 spit -1
@@ -1613,7 +1551,6 @@ spur -1
 stab -1
 stag -1
 star 352
-stat 2267
 stay 510
 stem 1958
 step 480
@@ -1648,7 +1585,6 @@ sway -1
 swig -1
 swim 2251
 sync 2612
-syne -1
 tabs 1679
 tack -1
 taco -1
@@ -1665,7 +1601,6 @@ tape 1033
 tarp -1
 tart -1
 task 869
-tate -1
 taut -1
 taxi 2509
 teal -1
@@ -1721,7 +1656,6 @@ told 666
 toll 1086
 tomb -1
 tome -1
-toms -1
 tone 1448
 tong -1
 tons 1928
@@ -1734,7 +1668,6 @@ tore -1
 torn -1
 toro -1
 tory -1
-tosh -1
 toss -1
 tote -1
 tots -1
@@ -1746,7 +1679,6 @@ trap 2450
 tray 2419
 tree 642
 trek 1975
-trey -1
 trig -1
 trim 2011
 trio 2524
@@ -1809,12 +1741,10 @@ vine -1
 vino -1
 visa 1248
 viva -1
-vive -1
 void 991
 volt 2338
 vote 652
 vows -1
-wack -1
 wade -1
 wage 1816
 waif -1

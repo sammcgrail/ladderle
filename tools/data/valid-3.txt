@@ -377,7 +377,6 @@ hue
 hug
 huh
 hum
-hun
 hup
 hut
 hyp
@@ -409,7 +408,6 @@ jay
 jee
 jet
 jeu
-jew
 jib
 jig
 jin
@@ -474,7 +472,6 @@ leu
 lev
 lex
 ley
-lez
 lib
 lid
 lie

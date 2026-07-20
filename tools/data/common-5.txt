@@ -159,7 +159,6 @@ basin 1989
 basis 640
 baste -1
 batch 2407
-bates -1
 bathe -1
 baths 2917
 baton -1
@@ -197,7 +196,6 @@ bench 2210
 bends -1
 bendy -1
 benes -1
-benny -1
 beret -1
 berry 2454
 bialy -1
@@ -215,7 +213,6 @@ birch -1
 birds 1367
 birth 925
 bison -1
-bitch -1
 bites -1
 bitsy -1
 bitty -1
@@ -310,7 +307,6 @@ bring 664
 brink -1
 britt -1
 broad 1300
-brock -1
 broke 2001
 brood -1
 brook 2805
@@ -372,7 +368,6 @@ canoe -1
 canon 850
 caper -1
 carat -1
-carbs -1
 cards 357
 cared -1
 cares -1
@@ -387,7 +382,6 @@ caste -1
 casts -1
 catch 1340
 cater -1
-cates -1
 catty -1
 cause 592
 caved -1
@@ -423,7 +417,6 @@ chest 1715
 chevy 2910
 chewy -1
 chick 2417
-chico -1
 chief 789
 child 359
 chili -1
@@ -503,7 +496,6 @@ coeds -1
 coins 1501
 cokes -1
 colds -1
-coles -1
 colic -1
 colon 2982
 color 375
@@ -517,7 +509,6 @@ comic 1486
 comma -1
 condo 2703
 cones -1
-coney -1
 congo 2160
 cooks -1
 cools -1
@@ -527,7 +518,6 @@ corks -1
 corky -1
 corny -1
 corps 1828
-costa 1230
 costs 412
 couch -1
 cough -1
@@ -592,7 +582,6 @@ cubby -1
 cubed -1
 cubes -1
 cubic 2900
-cuddy -1
 cuffs -1
 culpa -1
 cumin -1
@@ -623,7 +612,6 @@ dares -1
 darks -1
 darts -1
 dated 1783
-dater -1
 dates 887
 deals 458
 dealt 2771
@@ -642,7 +630,6 @@ deeds -1
 deets -1
 deity -1
 delay 1285
-delly -1
 delta 1104
 delve -1
 demon -1
@@ -654,7 +641,6 @@ depth 1014
 derby 2741
 desks -1
 deuce -1
-devel 1103
 devil 1765
 devon 2586
 dials -1
@@ -672,7 +658,6 @@ diner -1
 dingo -1
 dings -1
 dingy -1
-dinks -1
 dinky -1
 dirty 1527
 disco 2556
@@ -831,7 +816,6 @@ evils -1
 exact 1270
 exams 2490
 excel 1658
-execs -1
 exile -1
 exist 1180
 exits -1
@@ -882,7 +866,6 @@ femme -1
 femur -1
 fence 2608
 ferry 2178
-fetal -1
 fetch -1
 feuds -1
 fever 2271
@@ -921,7 +904,6 @@ fives -1
 fixed 747
 fixer -1
 fixes 2460
-flack -1
 flags 1596
 flail -1
 flair -1
@@ -1032,7 +1014,6 @@ gammy -1
 gamut -1
 gangs -1
 ganja -1
-garth -1
 gases -1
 gassy -1
 gated -1
@@ -1128,11 +1109,9 @@ grave 2578
 gravy -1
 great 132
 greed -1
-greek 1189
 green 390
 greet -1
 grief -1
-griff -1
 grift -1
 grill 2027
 grime -1
@@ -1143,7 +1122,6 @@ grips -1
 grits -1
 groin -1
 groom -1
-grope -1
 gross 1503
 group 114
 grove 1570
@@ -1182,9 +1160,7 @@ hardy -1
 harms -1
 harps -1
 harpy -1
-harry 967
 harsh -1
-harts -1
 haste -1
 hasty -1
 hatch -1
@@ -1255,7 +1231,6 @@ honda 1408
 honed -1
 honey 2064
 honks -1
-honky -1
 honor 1478
 hooch -1
 hooks -1
@@ -1316,7 +1291,6 @@ inept -1
 infra -1
 inner 1444
 input 668
-inter 1568
 intro 1846
 irons -1
 irony -1
@@ -1335,21 +1309,18 @@ jelly -1
 jenny 2784
 jerks -1
 jerky -1
-jerry 1681
 jesse 2617
 jewel 2949
 jiffy -1
 jihad -1
 jimmy 1750
 jocks -1
-johns 2946
 joins 2961
 joint 884
 joked -1
 joker -1
 jokes 1621
 jolly -1
-jones 876
 joust -1
 judas -1
 judge 1034
@@ -1369,7 +1340,6 @@ karma 2593
 kasha -1
 kayak -1
 keeps 1705
-kelly 1047
 kendo -1
 ketch -1
 khaki -1
@@ -1412,7 +1382,6 @@ laden 2826
 ladle -1
 lager -1
 laird -1
-laker -1
 lakes 1589
 lambs -1
 lamps 1939
@@ -1527,8 +1496,6 @@ loses -1
 lotte -1
 lotto -1
 lotus 2088
-louie -1
-louis 892
 louse -1
 lousy -1
 loved 1366
@@ -1555,7 +1522,6 @@ lying 2326
 lymph -1
 lynch -1
 lyric 2575
-mache -1
 macho -1
 macro 2075
 madam -1
@@ -1627,7 +1593,6 @@ midge -1
 midst -1
 miggs -1
 might 348
-mikes -1
 miles 420
 milky -1
 mills 1850
@@ -1667,11 +1632,8 @@ moles -1
 molto -1
 momma -1
 mommy -1
-monde -1
-mondo -1
 money 228
 monks -1
-monte 2716
 month 350
 mooch -1
 moods -1
@@ -1685,7 +1647,6 @@ mopes -1
 mopey -1
 moral 1702
 morph -1
-morse -1
 mosey -1
 motel 2187
 moths -1
@@ -1723,7 +1684,6 @@ myths -1
 nacho -1
 nails 2694
 naive -1
-naked 823
 named 964
 names 555
 nancy 1721
@@ -1736,7 +1696,6 @@ naval 2357
 necks -1
 needs 347
 needy -1
-nelly -1
 nerds -1
 nerdy -1
 nerve 2665
@@ -1842,7 +1801,6 @@ pants 1481
 panty -1
 paper 318
 pappy -1
-paris 750
 parka -1
 parks 1161
 parts 416
@@ -1924,7 +1882,6 @@ plank -1
 plans 528
 plant 707
 plate 1209
-playa -1
 plays 1293
 plaza 1646
 plead -1
@@ -1977,14 +1934,12 @@ price 63
 pride 1636
 prima -1
 prime 889
-primo -1
 print 244
 prior 620
 priss -1
 privy -1
 prize 1519
 probe 2116
-promo 2653
 proms -1
 prone -1
 proof 1146
@@ -2005,7 +1960,6 @@ pulse 1391
 pumps 2145
 punch 2590
 punks -1
-punky -1
 pupil -1
 puppy 2638
 puree -1
@@ -2098,7 +2052,6 @@ rests -1
 retro 2378
 rhino -1
 rhyme -1
-ricks -1
 rider 2213
 rides 2696
 ridge 1534
@@ -2132,7 +2085,6 @@ rodeo -1
 rogue -1
 roles 1737
 rolls 2175
-roman 1447
 romeo -1
 roofs -1
 rooms 601
@@ -2177,7 +2129,6 @@ safes -1
 sahib -1
 sails -1
 saint 880
-saith -1
 sakes -1
 salad 2223
 sales 254
@@ -2262,7 +2213,6 @@ shake 2599
 shaky -1
 shale -1
 shall 225
-shalt -1
 shame 2611
 shank -1
 shape 1169
@@ -2320,7 +2270,6 @@ sighs -1
 sight 1723
 sigma 1859
 signs 1012
-sikes -1
 silks -1
 silky -1
 silly 2601
@@ -2358,7 +2307,6 @@ slant -1
 slaps -1
 slash -1
 slate -1
-slave 1974
 sleek -1
 sleep 1074
 sleet -1
@@ -2447,7 +2395,6 @@ spawn -1
 speak 1028
 spear -1
 speck -1
-specs 1159
 speed 495
 spell 2288
 spelt -1
@@ -2494,7 +2441,6 @@ stalk -1
 stall -1
 stamp 2087
 stand 786
-stang -1
 stare -1
 stark -1
 stars 653
@@ -2717,7 +2663,6 @@ toons -1
 tooth 2971
 toots -1
 topaz -1
-topes -1
 topic 292
 torah -1
 torch -1
@@ -2852,7 +2797,6 @@ venue 1656
 verbs -1
 verge -1
 verse 2466
-vesta -1
 vests -1
 vials -1
 vibes -1
@@ -2900,11 +2844,9 @@ waits -1
 waive -1
 waken -1
 wakes -1
-wales 1060
 walks 2422
 walla -1
 walls 1600
-wally -1
 waltz -1
 wants 990
 wares -1
