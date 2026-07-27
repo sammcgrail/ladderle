@@ -1,3 +1,13 @@
+html, body {
+  /* Double-tap zoom resolves against the DOCUMENT, so touch-action on the
+     universal selector is not enough — html and body need it by name, and
+     the viewport meta needs the scale lock alongside. Reported from a real
+     iPhone on beamle, which had `*{touch-action:manipulation}` and still
+     zoomed. */
+  touch-action: none;
+  overflow: hidden;
+}
+
 :root {
   --bg: #0e1217;
   --panel: rgba(255, 255, 255, 0.035);
