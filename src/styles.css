@@ -7,7 +7,7 @@ html, body {
   /* pan-y, NOT none: `touch-action:none` on the document also kills scrolling,
      and a real phone has less usable height than a 390x844 test viewport once
      browser chrome is counted. Pinch is blocked by maximum-scale=1 in the meta. */
-  touch-action: pan-y;
+  touch-action: manipulation;
 }
 
 :root {

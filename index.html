@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -24,6 +24,23 @@
         if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
         e.preventDefault();
       });
+      // iOS Safari IGNORES user-scalable=no and maximum-scale (by design since
+      // iOS 10), so the viewport meta can never stop double-tap zoom there. Only
+      // touch-action can — and on a real device `manipulation` was NOT enough on
+      // the share area, while the board (touch-action:none) was fine. This cancels
+      // the default of a second tap inside 320ms, which is exactly the double-tap
+      // gesture. Taps are handled on pointerdown, which fires earlier and is not
+      // cancelled, so nothing loses a tap.
+      var __lastTouchEnd = 0;
+      document.addEventListener(
+        'touchend',
+        function (e) {
+          var now = Date.now();
+          if (now - __lastTouchEnd <= 320) e.preventDefault();
+          __lastTouchEnd = now;
+        },
+        { passive: false }
+      );
       document.addEventListener('contextmenu', function (e) {
         var t = e.target;
         if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
