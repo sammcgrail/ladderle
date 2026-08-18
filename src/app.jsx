@@ -12,13 +12,19 @@ import { Reveal } from './reveal.jsx';
  */
 import { PUZZLES } from './puzzles.enc.js';
 import { WORDS as RAW_WORDS } from './words.js';
+import { EPOCH, addDays, numberForDate, indexForDate } from './schedule.js';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-const BY_DATE = new Map(PUZZLES.map((p) => [p.date, p]));
-const BY_NUM = new Map(PUZZLES.map((p) => [p.n, p]));
-const DATES = PUZZLES.map((p) => p.date).sort();
+// LOOPS FOREVER now (src/schedule.js): a puzzle's `date` is just its authoring id /
+// cipher key; the calendar day decides which puzzle plays via the stride walk, so it
+// never sticks on #last (it used to stop on the final dated puzzle, 2026-11-16).
+const POOL = PUZZLES.slice().sort((a, b) => a.n - b.n);
+const N = POOL.length;
+const puzzleForDate = (d) => POOL[indexForDate(d, N)] || POOL[0];
+const CAL_WINDOW = 56;
+const calDates = (today) => { const span = Math.min(CAL_WINDOW, numberForDate(today)); return Array.from({ length: span }, (_, i) => addDays(today, -(span - 1 - i))).filter((d) => d >= EPOCH); };
 
 const up = (s) => String(s).toUpperCase();
 
@@ -177,7 +183,7 @@ function localDateStr(d) {
 }
 function parseDate(s) { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); }
 function shortDate(s) { const [, m, d] = s.split('-').map(Number); return `${WD[parseDate(s).getDay()]} ${MONTHS[m - 1]} ${d}`; }
-function latestOnOrBefore(t) { let best = DATES[0]; for (const d of DATES) { if (d <= t) best = d; else break; } return best; }
+const clampDay = (d, t) => (d < EPOCH ? EPOCH : d > t ? t : d);
 function msToMidnight() {
   const n = new Date();
   const nx = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1, 0, 0, 0, 0);
@@ -190,13 +196,13 @@ function fmtCountdown(ms) {
   const ss = String(s % 60).padStart(2, '0');
   return `${h}:${m}:${ss}`;
 }
-function deepLinkPuzzle() {
+function deepLinkDate() {
   try {
     const raw = new URLSearchParams(location.search).get('d');
     if (!raw) return null;
-    if (/^\d{4}-\d{2}-\d{2}$/.test(raw) && BY_DATE.has(raw)) return BY_DATE.get(raw);
-    const d = parseInt(raw, 10);
-    if (Number.isFinite(d) && BY_NUM.has(d)) return BY_NUM.get(d);
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw) && raw >= EPOCH) return raw;
+    const n = parseInt(raw, 10);
+    if (Number.isFinite(n) && n >= 1) return addDays(EPOCH, n - 1);
   } catch { /* ignore */ }
   return null;
 }
@@ -266,8 +272,8 @@ function Rung({ word, prev, label, kind, matchWith, onLetter }) {
 /* ==================================================================== */
 /*  Single-day game (remounts on date switch via key={number})          */
 /* ==================================================================== */
-function Game({ puzzle, number, isToday }) {
-  const storeKey = `ladderle-${puzzle.date}`;
+function Game({ puzzle, dayKey, number, isToday }) {
+  const storeKey = `ladderle-${dayKey}`;
   const start = up(puzzle.start);
   const end = up(puzzle.end);
   const len = puzzle.len || start.length;
@@ -330,8 +336,8 @@ function Game({ puzzle, number, isToday }) {
 
   // a healed save finished the day but the crash beat recordResult — record now
   useEffect(() => {
-    if (initial.status === 'won' && !loadStats().done.includes(puzzle.date)) {
-      setStats(recordResult(puzzle.date, initial.rungs.length === par, initial.rungs.length - par));
+    if (initial.status === 'won' && !loadStats().done.includes(dayKey)) {
+      setStats(recordResult(dayKey, initial.rungs.length === par, initial.rungs.length - par));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -446,10 +452,10 @@ function Game({ puzzle, number, isToday }) {
     if (w === end) {
       setStatus('won');
       freshWin.current = true;
-      setStats(recordResult(puzzle.date, next.length === par, next.length - par));
+      setStats(recordResult(dayKey, next.length === par, next.length - par));
       try { inputRef.current && inputRef.current.blur(); } catch { /* ignore */ }
     }
-  }, [done, entry, len, cur, rungs, end, par, puzzle.date, fail, setEntryValue]);
+  }, [done, entry, len, cur, rungs, end, par, dayKey, fail, setEntryValue]);
 
   const doHint = useCallback(() => {
     if (done) return;
@@ -684,9 +690,7 @@ export function App() {
   const [today, setToday] = useState(() => localDateStr(new Date()));
   const [selDate, setSelDate] = useState(() => {
     const td = localDateStr(new Date());
-    const deep = deepLinkPuzzle();
-    if (deep && deep.date <= td) return deep.date;
-    return latestOnOrBefore(td);
+    return clampDay(deepLinkDate() || td, td);
   });
   const [calOpen, setCalOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -712,17 +716,16 @@ export function App() {
   useEffect(() => {
     const id = setInterval(() => {
       const tt = localDateStr(new Date());
-      if (tt !== today) { setToday(tt); setSelDate((prev) => (prev === today ? latestOnOrBefore(tt) : prev)); }
+      if (tt !== today) { setToday(tt); setSelDate((prev) => (prev === today ? tt : prev)); }
     }, 15000);
     return () => clearInterval(id);
   }, [today]);
 
-  const puzzle = BY_DATE.get(selDate) || BY_DATE.get(latestOnOrBefore(today));
-  const number = puzzle.n;
+  const puzzle = puzzleForDate(selDate);
+  const number = numberForDate(selDate);
   const isToday = selDate === today;
-  const idx = DATES.indexOf(puzzle.date);
-  const canPrev = idx > 0;
-  const canNext = idx < DATES.length - 1 && DATES[idx + 1] <= today;
+  const canPrev = selDate > EPOCH;
+  const canNext = selDate < today;
 
   useEffect(() => {
     try { history.replaceState(null, '', isToday ? location.pathname : `${location.pathname}?d=${number}`); }
@@ -753,9 +756,9 @@ export function App() {
       <p class="tagline">Climb from START to END one letter at a time — every rung a real word. Match par for a perfect ladder.</p>
 
       <div class="meta">
-        <button class={`nav${canPrev ? '' : ' off'}`} onClick={() => canPrev && setSelDate(DATES[idx - 1])} aria-disabled={!canPrev} aria-label="Previous day">‹</button>
-        <span class="meta-label">#{number} · {shortDate(puzzle.date)}{isToday ? ' · today' : ''}</span>
-        <button class={`nav${canNext ? '' : ' off'}`} onClick={() => canNext && setSelDate(DATES[idx + 1])} aria-disabled={!canNext} aria-label="Next day">›</button>
+        <button class={`nav${canPrev ? '' : ' off'}`} onClick={() => canPrev && setSelDate(addDays(selDate, -1))} aria-disabled={!canPrev} aria-label="Previous day">‹</button>
+        <span class="meta-label">#{number} · {shortDate(selDate)}{isToday ? ' · today' : ''}</span>
+        <button class={`nav${canNext ? '' : ' off'}`} onClick={() => canNext && setSelDate(addDays(selDate, 1))} aria-disabled={!canNext} aria-label="Next day">›</button>
       </div>
 
       {helpOpen && (
@@ -773,28 +776,25 @@ export function App() {
         </div>
       )}
 
-      <Game key={number} puzzle={puzzle} number={number} isToday={isToday} />
+      <Game key={number} puzzle={puzzle} dayKey={selDate} number={number} isToday={isToday} />
 
       {calOpen && (
         <div class="cal-overlay" onClick={() => setCalOpen(false)}>
           <div class="cal" onClick={(e) => e.stopPropagation()}>
             <div class="cal-head"><span>Pick a day</span><button class="cal-x" onClick={() => setCalOpen(false)} aria-label="Close">✕</button></div>
             <div class="cal-grid">
-              {DATES.map((d) => {
-                const p = BY_DATE.get(d);
-                const future = d > today;
-                const st = playState(p.date);
+              {calDates(today).map((d) => {
+                const st = playState(d);
                 let cls = 'cal-cell';
-                if (d === puzzle.date) cls += ' sel';
-                if (future) cls += ' future';
-                else if (st === 'won') cls += ' won';
+                if (d === selDate) cls += ' sel';
+                if (st === 'won') cls += ' won';
                 const [, mm, dd] = d.split('-').map(Number);
                 return (
-                  <button class={cls} key={d} aria-disabled={future}
-                    onClick={() => { if (!future) { setSelDate(d); setCalOpen(false); } }}>
-                    <span class="cal-n">#{p.n}</span>
+                  <button class={cls} key={d}
+                    onClick={() => { setSelDate(d); setCalOpen(false); }}>
+                    <span class="cal-n">#{numberForDate(d)}</span>
                     <span class="cal-d">{MONTHS[mm - 1]} {dd}</span>
-                    <span class="cal-s">{future ? '🔒' : st === 'won' ? '✓' : ''}</span>
+                    <span class="cal-s">{st === 'won' ? '✓' : ''}</span>
                   </button>
                 );
               })}
